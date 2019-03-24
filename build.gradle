@@ -6,6 +6,7 @@ buildscript {
     ext.gsonVersion = '2.8.5'
 
     repositories {
+        mavenCentral()
         jcenter()
         google()
     }
