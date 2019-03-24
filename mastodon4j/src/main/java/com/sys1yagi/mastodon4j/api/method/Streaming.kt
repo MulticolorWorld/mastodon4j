@@ -22,7 +22,7 @@ class Streaming(private val client: MastodonClient) {
             "streaming/user"
         )
         if (response.isSuccessful) {
-            val reader = response.body().byteStream().bufferedReader()
+            val reader = response.body()!!.byteStream().bufferedReader()
             val dispatcher = Dispatcher()
             dispatcher.invokeLater(
                 streamingRunnable(reader, handler)
@@ -39,7 +39,7 @@ class Streaming(private val client: MastodonClient) {
             "streaming/public"
         )
         if (response.isSuccessful) {
-            val reader = response.body().byteStream().bufferedReader()
+            val reader = response.body()!!.byteStream().bufferedReader()
             val dispatcher = Dispatcher()
             dispatcher.invokeLater(
                 streamingRunnable(reader, handler)
@@ -56,7 +56,7 @@ class Streaming(private val client: MastodonClient) {
             "streaming/public/local"
         )
         if (response.isSuccessful) {
-            val reader = response.body().byteStream().bufferedReader()
+            val reader = response.body()!!.byteStream().bufferedReader()
             val dispatcher = Dispatcher()
             dispatcher.invokeLater(
                 streamingRunnable(reader, handler)
@@ -74,7 +74,7 @@ class Streaming(private val client: MastodonClient) {
             Parameter().append("tag", tag)
         )
         if (response.isSuccessful) {
-            val reader = response.body().byteStream().bufferedReader()
+            val reader = response.body()!!.byteStream().bufferedReader()
             val dispatcher = Dispatcher()
             dispatcher.invokeLater(
                 streamingRunnable(reader, handler)
@@ -92,7 +92,7 @@ class Streaming(private val client: MastodonClient) {
             Parameter().append("list", listId)
         )
         if (response.isSuccessful) {
-            val reader = response.body().byteStream().bufferedReader()
+            val reader = response.body()!!.byteStream().bufferedReader()
             val dispatcher = Dispatcher()
             dispatcher.invokeLater(
                 streamingRunnable(reader, handler)
@@ -109,7 +109,7 @@ class Streaming(private val client: MastodonClient) {
             "streaming/direct"
         )
         if (response.isSuccessful) {
-            val reader = response.body().byteStream().bufferedReader()
+            val reader = response.body()!!.byteStream().bufferedReader()
             val dispatcher = Dispatcher()
             dispatcher.invokeLater(
                 streamingRunnable(reader, handler)

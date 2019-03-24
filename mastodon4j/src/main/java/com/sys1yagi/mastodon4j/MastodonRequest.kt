@@ -5,7 +5,6 @@ import com.sys1yagi.mastodon4j.api.exception.Mastodon4jRequestException
 import com.sys1yagi.mastodon4j.extension.toPageable
 import io.reactivex.Single
 import okhttp3.Response
-import java.lang.Exception
 
 open class MastodonRequest<T>(
     private val executor: () -> Response,
@@ -38,7 +37,7 @@ open class MastodonRequest<T>(
         val response = executor()
         if (response.isSuccessful) {
             try {
-                val body = response.body().string()
+                val body = response.body()!!.string()
                 val element = JsonParser().parse(body)
                 if (element.isJsonObject) {
                     action(body)
