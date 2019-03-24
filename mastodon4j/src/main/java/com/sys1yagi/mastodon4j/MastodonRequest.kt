@@ -7,8 +7,8 @@ import io.reactivex.Single
 import okhttp3.Response
 
 open class MastodonRequest<T>(
-    private val executor: () -> Response,
-    private val mapper: (String) -> Any
+        private val executor: () -> Response,
+        private val mapper: (String) -> Any
 ) {
     interface Action1<T> {
         fun invoke(arg: T)

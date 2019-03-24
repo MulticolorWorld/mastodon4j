@@ -19,39 +19,39 @@ class Notifications(private val client: MastodonClient) {
     // GET /api/v1/notifications
     fun getNotifications(range: Range = Range()): MastodonRequest<Pageable<Notification>> {
         return MastodonRequest<Pageable<Notification>>(
-            {
-                client.get(
-                    "notifications",
-                    range.toParameter()
-                )
-            },
-            {
-                client.getSerializer().fromJson(it, Notification::class.java)
-            }
+                {
+                    client.get(
+                            "notifications",
+                            range.toParameter()
+                    )
+                },
+                {
+                    client.getSerializer().fromJson(it, Notification::class.java)
+                }
         ).toPageable()
     }
 
     // GET /api/v1/notifications/:id
     fun getNotification(id: Long): MastodonRequest<Notification> {
         return MastodonRequest(
-            {
-                client.get("notifications/$id")
-            },
-            {
-                client.getSerializer().fromJson(it, Notification::class.java)
-            }
+                {
+                    client.get("notifications/$id")
+                },
+                {
+                    client.getSerializer().fromJson(it, Notification::class.java)
+                }
         )
     }
 
     //  POST /api/v1/notifications/clear
     fun clearNotifications(): MastodonRequest<Nothing> {
         return MastodonRequest(
-            {
-                client.post("notifications/clear", emptyRequestBody())
-            },
-            {
-                client.getSerializer().fromJson(it, Notification::class.java)
-            }
+                {
+                    client.post("notifications/clear", emptyRequestBody())
+                },
+                {
+                    client.getSerializer().fromJson(it, Notification::class.java)
+                }
         )
     }
 
@@ -61,29 +61,29 @@ class Notifications(private val client: MastodonClient) {
             append("id", id)
         }
         return MastodonRequest(
-            {
-                client.post("notifications/dismiss",
-                    RequestBody.create(
-                        MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                        parameters.build()
+                {
+                    client.post("notifications/dismiss",
+                            RequestBody.create(
+                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
+                                    parameters.build()
+                            )
                     )
-                )
-            },
-            {
-                client.getSerializer().fromJson(it, Notification::class.java)
-            }
+                },
+                {
+                    client.getSerializer().fromJson(it, Notification::class.java)
+                }
         )
     }
 
     //  POST /api/v1/push/subscription
     fun postPushSubscription(
-        endpoint: String,
-        publicKey: String,
-        authKey: String,
-        isReceiveFollow: Boolean? = null,
-        isReceiveFavourite: Boolean? = null,
-        isReceiveReblog: Boolean? = null,
-        isReceiveMention: Boolean? = null
+            endpoint: String,
+            publicKey: String,
+            authKey: String,
+            isReceiveFollow: Boolean? = null,
+            isReceiveFavourite: Boolean? = null,
+            isReceiveReblog: Boolean? = null,
+            isReceiveMention: Boolean? = null
     ): MastodonRequest<PushSubscription> {
         val parameters = Parameter().apply {
             append("subscription[endpoint]", endpoint)
@@ -104,38 +104,38 @@ class Notifications(private val client: MastodonClient) {
         }
 
         return MastodonRequest(
-            {
-                client.post("push/subscription",
-                    RequestBody.create(
-                        MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                        parameters.build()
+                {
+                    client.post("push/subscription",
+                            RequestBody.create(
+                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
+                                    parameters.build()
+                            )
                     )
-                )
-            },
-            {
-                client.getSerializer().fromJson(it, PushSubscription::class.java)
-            }
+                },
+                {
+                    client.getSerializer().fromJson(it, PushSubscription::class.java)
+                }
         )
     }
 
     //  GET /api/v1/push/subscription
     fun getSubscriotion(): MastodonRequest<PushSubscription> {
         return MastodonRequest(
-            {
-                client.get("push/subscription")
-            },
-            {
-                client.getSerializer().fromJson(it, PushSubscription::class.java)
-            }
+                {
+                    client.get("push/subscription")
+                },
+                {
+                    client.getSerializer().fromJson(it, PushSubscription::class.java)
+                }
         )
     }
 
     //  PUT /api/v1/push/subscription
     fun updatePushSubscripton(
-        isReceiveFollow: Boolean? = null,
-        isReceiveFavourite: Boolean? = null,
-        isReceiveReblog: Boolean? = null,
-        isReceiveMention: Boolean? = null
+            isReceiveFollow: Boolean? = null,
+            isReceiveFavourite: Boolean? = null,
+            isReceiveReblog: Boolean? = null,
+            isReceiveMention: Boolean? = null
     ): MastodonRequest<PushSubscription> {
         val parameters = Parameter().apply {
             isReceiveFollow?.let {
@@ -153,29 +153,29 @@ class Notifications(private val client: MastodonClient) {
         }
 
         return MastodonRequest(
-            {
-                client.put("push/subscription",
-                    RequestBody.create(
-                        MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                        parameters.build()
+                {
+                    client.put("push/subscription",
+                            RequestBody.create(
+                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
+                                    parameters.build()
+                            )
                     )
-                )
-            },
-            {
-                client.getSerializer().fromJson(it, PushSubscription::class.java)
-            }
+                },
+                {
+                    client.getSerializer().fromJson(it, PushSubscription::class.java)
+                }
         )
     }
 
     //  DELETE /api/v1/push/subscription
     fun deleteSubscription(): MastodonRequest<Nothing> {
         return MastodonRequest(
-            {
-                client.delete("push/subscription", emptyRequestBody())
-            },
-            {
-                client.getSerializer().fromJson(it, Nothing::class.java)
-            }
+                {
+                    client.delete("push/subscription", emptyRequestBody())
+                },
+                {
+                    client.getSerializer().fromJson(it, Nothing::class.java)
+                }
         )
     }
 }

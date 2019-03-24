@@ -18,17 +18,17 @@ class Follows(private val client: MastodonClient) {
             append("uri", uri)
         }
         return MastodonRequest(
-            {
-                client.post("follows",
-                    RequestBody.create(
-                        MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                        parameters.build()
+                {
+                    client.post("follows",
+                            RequestBody.create(
+                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
+                                    parameters.build()
+                            )
                     )
-                )
-            },
-            {
-                client.getSerializer().fromJson(it, Account::class.java)
-            }
+                },
+                {
+                    client.getSerializer().fromJson(it, Account::class.java)
+                }
         )
     }
 }

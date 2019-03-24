@@ -13,24 +13,24 @@ class Instances(private val client: MastodonClient) {
     //  GET /api/v1/instance
     fun getInstance(): MastodonRequest<Instance> {
         return MastodonRequest(
-            {
-                client.get("instance")
-            },
-            {
-                client.getSerializer().fromJson(it, Instance::class.java)
-            }
+                {
+                    client.get("instance")
+                },
+                {
+                    client.getSerializer().fromJson(it, Instance::class.java)
+                }
         )
     }
 
     //  GET /api/v1/custom_emojis
     fun getCustomEmojis(): MastodonRequest<List<Emoji>> {
         return MastodonRequest(
-            {
-                client.get("custom_emojis")
-            },
-            {
-                client.getSerializer().fromJson(it, Emoji::class.java)
-            }
+                {
+                    client.get("custom_emojis")
+                },
+                {
+                    client.getSerializer().fromJson(it, Emoji::class.java)
+                }
         )
     }
 }

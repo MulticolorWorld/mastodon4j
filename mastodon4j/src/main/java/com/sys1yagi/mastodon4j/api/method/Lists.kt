@@ -18,60 +18,60 @@ class Lists(private val client: MastodonClient) {
     //  GET /api/v1/lists
     fun getLists(): MastodonRequest<List<MastodonList>> {
         return MastodonRequest(
-            {
-                client.get("lists")
-            },
-            {
-                client.getSerializer().fromJson(it, MastodonList::class.java)
-            }
+                {
+                    client.get("lists")
+                },
+                {
+                    client.getSerializer().fromJson(it, MastodonList::class.java)
+                }
         )
     }
 
     //  GET /api/v1/accounts/:id/lists
     fun getListsByMembership(accountId: Long): MastodonRequest<List<MastodonList>> {
         return MastodonRequest(
-            {
-                client.get("accounts/$accountId/lists")
-            },
-            {
-                client.getSerializer().fromJson(it, MastodonList::class.java)
-            }
+                {
+                    client.get("accounts/$accountId/lists")
+                },
+                {
+                    client.getSerializer().fromJson(it, MastodonList::class.java)
+                }
         )
     }
 
     //  GET /api/v1/lists/:id/accounts
     fun getAccountsInList(id: Long): MastodonRequest<Pageable<Account>> {
         return MastodonRequest<Pageable<Account>>(
-            {
-                client.get("lists/$id/accounts")
-            },
-            {
-                client.getSerializer().fromJson(it, Account::class.java)
-            }
+                {
+                    client.get("lists/$id/accounts")
+                },
+                {
+                    client.getSerializer().fromJson(it, Account::class.java)
+                }
         ).toPageable()
     }
 
     //  GET /api/v1/lists/:id
     fun getList(id: Long): MastodonRequest<MastodonList> {
         return MastodonRequest(
-            {
-                client.get("lists/$id")
-            },
-            {
-                client.getSerializer().fromJson(it, MastodonList::class.java)
-            }
+                {
+                    client.get("lists/$id")
+                },
+                {
+                    client.getSerializer().fromJson(it, MastodonList::class.java)
+                }
         )
     }
 
     //  POST /api/v1/lists
     fun createList(): MastodonRequest<MastodonList> {
         return MastodonRequest(
-            {
-                client.post("lists", emptyRequestBody())
-            },
-            {
-                client.getSerializer().fromJson(it, MastodonList::class.java)
-            }
+                {
+                    client.post("lists", emptyRequestBody())
+                },
+                {
+                    client.getSerializer().fromJson(it, MastodonList::class.java)
+                }
         )
     }
 
@@ -81,29 +81,29 @@ class Lists(private val client: MastodonClient) {
             append("title", title)
         }
         return MastodonRequest(
-            {
-                client.put("lists/$id",
-                    RequestBody.create(
-                        MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                        parameters.build()
+                {
+                    client.put("lists/$id",
+                            RequestBody.create(
+                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
+                                    parameters.build()
+                            )
                     )
-                )
-            },
-            {
-                client.getSerializer().fromJson(it, MastodonList::class.java)
-            }
+                },
+                {
+                    client.getSerializer().fromJson(it, MastodonList::class.java)
+                }
         )
     }
 
     //  DELETE /api/v1/lists/:id
     fun deleteList(id: Long): MastodonRequest<Nothing> {
         return MastodonRequest(
-            {
-                client.delete("lists/$id", emptyRequestBody())
-            },
-            {
-                client.getSerializer().fromJson(it, MastodonList::class.java)
-            }
+                {
+                    client.delete("lists/$id", emptyRequestBody())
+                },
+                {
+                    client.getSerializer().fromJson(it, MastodonList::class.java)
+                }
         )
     }
 
@@ -113,17 +113,17 @@ class Lists(private val client: MastodonClient) {
             append("account_ids", accountIds)
         }
         return MastodonRequest(
-            {
-                client.post("lists/$id/accounts",
-                    RequestBody.create(
-                        MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                        parameters.build()
+                {
+                    client.post("lists/$id/accounts",
+                            RequestBody.create(
+                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
+                                    parameters.build()
+                            )
                     )
-                )
-            },
-            {
-                client.getSerializer().fromJson(it, Nothing::class.java)
-            }
+                },
+                {
+                    client.getSerializer().fromJson(it, Nothing::class.java)
+                }
         )
     }
 
@@ -133,17 +133,17 @@ class Lists(private val client: MastodonClient) {
             append("account_ids", accountIds)
         }
         return MastodonRequest(
-            {
-                client.delete("lists/$id/accounts",
-                    RequestBody.create(
-                        MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                        parameters.build()
+                {
+                    client.delete("lists/$id/accounts",
+                            RequestBody.create(
+                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
+                                    parameters.build()
+                            )
                     )
-                )
-            },
-            {
-                client.getSerializer().fromJson(it, Nothing::class.java)
-            }
+                },
+                {
+                    client.getSerializer().fromJson(it, Nothing::class.java)
+                }
         )
     }
 }

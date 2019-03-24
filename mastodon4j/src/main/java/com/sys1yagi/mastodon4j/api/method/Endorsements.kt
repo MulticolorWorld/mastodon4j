@@ -13,18 +13,18 @@ class Endorsements(private val client: MastodonClient) {
 
     //  GET /api/v1/endorsements
     fun getEndorsements(
-        range: Range = Range()
+            range: Range = Range()
     ): MastodonRequest<Pageable<Account>> {
         return MastodonRequest<Pageable<Account>>(
-            {
-                client.get(
-                    "endorsements",
-                    range.toParameter()
-                )
-            },
-            {
-                client.getSerializer().fromJson(it, Account::class.java)
-            }
+                {
+                    client.get(
+                            "endorsements",
+                            range.toParameter()
+                    )
+                },
+                {
+                    client.getSerializer().fromJson(it, Account::class.java)
+                }
         ).toPageable()
     }
 }

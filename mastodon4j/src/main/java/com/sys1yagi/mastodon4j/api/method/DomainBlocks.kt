@@ -16,12 +16,12 @@ class DomainBlocks(private val client: MastodonClient) {
     //  GET /api/v1/domain_blocks
     fun getDomainBlocks(range: Range = Range()): MastodonRequest<Pageable<String>> {
         return MastodonRequest<Pageable<String>>(
-            {
-                client.get("domain_blocks", range.toParameter())
-            },
-            {
-                client.getSerializer().fromJson(it, String::class.java)
-            }
+                {
+                    client.get("domain_blocks", range.toParameter())
+                },
+                {
+                    client.getSerializer().fromJson(it, String::class.java)
+                }
         ).toPageable()
     }
 
@@ -31,17 +31,17 @@ class DomainBlocks(private val client: MastodonClient) {
             append("domain", domain)
         }
         return MastodonRequest(
-            {
-                client.post("domain_blocks",
-                    RequestBody.create(
-                        MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                        parameters.build()
+                {
+                    client.post("domain_blocks",
+                            RequestBody.create(
+                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
+                                    parameters.build()
+                            )
                     )
-                )
-            },
-            {
-                client.getSerializer().fromJson(it, Nothing::class.java)
-            }
+                },
+                {
+                    client.getSerializer().fromJson(it, Nothing::class.java)
+                }
         )
     }
 
@@ -51,16 +51,16 @@ class DomainBlocks(private val client: MastodonClient) {
             append("domain", domain)
         }
         return MastodonRequest(
-            {
-                client.delete("domain_blocks",
-                    RequestBody.create(
-                        MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                        parameters.build()
-                    ))
-            },
-            {
-                client.getSerializer().fromJson(it, Nothing::class.java)
-            }
+                {
+                    client.delete("domain_blocks",
+                            RequestBody.create(
+                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
+                                    parameters.build()
+                            ))
+                },
+                {
+                    client.getSerializer().fromJson(it, Nothing::class.java)
+                }
         )
     }
 }

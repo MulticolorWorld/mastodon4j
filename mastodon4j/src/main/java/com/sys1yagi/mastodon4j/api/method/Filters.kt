@@ -16,22 +16,22 @@ class Filters(private val client: MastodonClient) {
     //  GET /api/vi/filters
     fun getFilters(): MastodonRequest<List<Filters>> {
         return MastodonRequest(
-            {
-                client.get("filters")
-            },
-            {
-                client.getSerializer().fromJson(it, Filter::class.java)
-            }
+                {
+                    client.get("filters")
+                },
+                {
+                    client.getSerializer().fromJson(it, Filter::class.java)
+                }
         )
     }
 
     //  POST /api/vi/filters
     fun postFilter(
-        phrase: String,
-        context: List<String>,
-        irreversible: Boolean? = null,
-        wholeWord: Boolean? = null,
-        expiresIn: Int? = null
+            phrase: String,
+            context: List<String>,
+            irreversible: Boolean? = null,
+            wholeWord: Boolean? = null,
+            expiresIn: Int? = null
     ): MastodonRequest<Filter> {
         val parameters = Parameter().apply {
             append("phrase", phrase)
@@ -47,40 +47,40 @@ class Filters(private val client: MastodonClient) {
             }
         }
         return MastodonRequest(
-            {
-                client.post("filters",
-                    RequestBody.create(
-                        MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                        parameters.build()
+                {
+                    client.post("filters",
+                            RequestBody.create(
+                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
+                                    parameters.build()
+                            )
                     )
-                )
-            },
-            {
-                client.getSerializer().fromJson(it, Filter::class.java)
-            }
+                },
+                {
+                    client.getSerializer().fromJson(it, Filter::class.java)
+                }
         )
     }
 
     //  GET /api/vi/filters/:id
     fun getFilter(id: Long): MastodonRequest<Filter> {
         return MastodonRequest(
-            {
-                client.get("filters/$id")
-            },
-            {
-                client.getSerializer().fromJson(it, Filter::class.java)
-            }
+                {
+                    client.get("filters/$id")
+                },
+                {
+                    client.getSerializer().fromJson(it, Filter::class.java)
+                }
         )
     }
 
     //  PUT /api/vi/filters/:id
     fun putFilter(
-        id: Long,
-        phrase: String,
-        context: List<String>,
-        irreversible: Boolean? = null,
-        wholeWord: Boolean? = null,
-        expiresIn: Int? = null
+            id: Long,
+            phrase: String,
+            context: List<String>,
+            irreversible: Boolean? = null,
+            wholeWord: Boolean? = null,
+            expiresIn: Int? = null
     ): MastodonRequest<Filter> {
         val parameters = Parameter().apply {
             append("phrase", phrase)
@@ -96,29 +96,29 @@ class Filters(private val client: MastodonClient) {
             }
         }
         return MastodonRequest(
-            {
-                client.put("filters/$id",
-                    RequestBody.create(
-                        MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                        parameters.build()
+                {
+                    client.put("filters/$id",
+                            RequestBody.create(
+                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
+                                    parameters.build()
+                            )
                     )
-                )
-            },
-            {
-                client.getSerializer().fromJson(it, Filter::class.java)
-            }
+                },
+                {
+                    client.getSerializer().fromJson(it, Filter::class.java)
+                }
         )
     }
 
     //  DELETE /api/vi/filters/:id
     fun deleteFilter(id: Long): MastodonRequest<Nothing> {
         return MastodonRequest(
-            {
-                client.delete("filters/$id", emptyRequestBody())
-            },
-            {
-                client.getSerializer().fromJson(it, Nothing::class.java)
-            }
+                {
+                    client.delete("filters/$id", emptyRequestBody())
+                },
+                {
+                    client.getSerializer().fromJson(it, Nothing::class.java)
+                }
         )
     }
 }

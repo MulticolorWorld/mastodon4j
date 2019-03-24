@@ -15,37 +15,37 @@ class Media(private val client: MastodonClient) {
 
     //  POST /api/v1/media
     fun postMedia(
-        file: MultipartBody.Part,
-        description: String? = null,
-        focus: String? = null
+            file: MultipartBody.Part,
+            description: String? = null,
+            focus: String? = null
     ): MastodonRequest<Attachment> {
         val requestBody = MultipartBody.Builder()
-            .setType(MultipartBody.FORM)
-            .addPart(file)
-            .apply {
-                description?.let {
-                    addFormDataPart("description", description)
-                }
-                focus?.let {
-                    addFormDataPart("focus", focus)
-                }
-            }.build()
+                .setType(MultipartBody.FORM)
+                .addPart(file)
+                .apply {
+                    description?.let {
+                        addFormDataPart("description", description)
+                    }
+                    focus?.let {
+                        addFormDataPart("focus", focus)
+                    }
+                }.build()
 
         return MastodonRequest(
-            {
-                client.post("media", requestBody)
-            },
-            {
-                client.getSerializer().fromJson(it, Attachment::class.java)
-            }
+                {
+                    client.post("media", requestBody)
+                },
+                {
+                    client.getSerializer().fromJson(it, Attachment::class.java)
+                }
         )
     }
 
     //  PUT /api/v1/media/:id
     fun updateMedia(
-        id: Long,
-        description: String? = null,
-        focus: String? = null
+            id: Long,
+            description: String? = null,
+            focus: String? = null
     ): MastodonRequest<Attachment> {
         val parameters = Parameter().apply {
             description?.let {
@@ -57,16 +57,16 @@ class Media(private val client: MastodonClient) {
         }
 
         return MastodonRequest(
-            {
-                client.patch("media/$id",
-                    RequestBody.create(
-                        MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                        parameters.build()
-                    ))
-            },
-            {
-                client.getSerializer().fromJson(it, Attachment::class.java)
-            }
+                {
+                    client.patch("media/$id",
+                            RequestBody.create(
+                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
+                                    parameters.build()
+                            ))
+                },
+                {
+                    client.getSerializer().fromJson(it, Attachment::class.java)
+                }
         )
     }
 }

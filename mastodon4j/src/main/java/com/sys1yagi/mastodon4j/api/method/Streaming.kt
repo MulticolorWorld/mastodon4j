@@ -19,13 +19,13 @@ class Streaming(private val client: MastodonClient) {
     @Throws(Mastodon4jRequestException::class)
     fun user(handler: Handler): Shutdownable {
         val response = client.get(
-            "streaming/user"
+                "streaming/user"
         )
         if (response.isSuccessful) {
             val reader = response.body()!!.byteStream().bufferedReader()
             val dispatcher = Dispatcher()
             dispatcher.invokeLater(
-                streamingRunnable(reader, handler)
+                    streamingRunnable(reader, handler)
             )
             return Shutdownable(dispatcher)
         } else {
@@ -36,13 +36,13 @@ class Streaming(private val client: MastodonClient) {
     @Throws(Mastodon4jRequestException::class)
     fun public(handler: Handler): Shutdownable {
         val response = client.get(
-            "streaming/public"
+                "streaming/public"
         )
         if (response.isSuccessful) {
             val reader = response.body()!!.byteStream().bufferedReader()
             val dispatcher = Dispatcher()
             dispatcher.invokeLater(
-                streamingRunnable(reader, handler)
+                    streamingRunnable(reader, handler)
             )
             return Shutdownable(dispatcher)
         } else {
@@ -53,13 +53,13 @@ class Streaming(private val client: MastodonClient) {
     @Throws(Mastodon4jRequestException::class)
     fun localPublic(handler: Handler): Shutdownable {
         val response = client.get(
-            "streaming/public/local"
+                "streaming/public/local"
         )
         if (response.isSuccessful) {
             val reader = response.body()!!.byteStream().bufferedReader()
             val dispatcher = Dispatcher()
             dispatcher.invokeLater(
-                streamingRunnable(reader, handler)
+                    streamingRunnable(reader, handler)
             )
             return Shutdownable(dispatcher)
         } else {
@@ -70,14 +70,14 @@ class Streaming(private val client: MastodonClient) {
     @Throws(Mastodon4jRequestException::class)
     fun hashtag(tag: String, handler: Handler): Shutdownable {
         val response = client.get(
-            "streaming/hashtag",
-            Parameter().append("tag", tag)
+                "streaming/hashtag",
+                Parameter().append("tag", tag)
         )
         if (response.isSuccessful) {
             val reader = response.body()!!.byteStream().bufferedReader()
             val dispatcher = Dispatcher()
             dispatcher.invokeLater(
-                streamingRunnable(reader, handler)
+                    streamingRunnable(reader, handler)
             )
             return Shutdownable(dispatcher)
         } else {
@@ -88,14 +88,14 @@ class Streaming(private val client: MastodonClient) {
     @Throws(Mastodon4jRequestException::class)
     fun list(listId: Long, handler: Handler): Shutdownable {
         val response = client.get(
-            "streaming/list",
-            Parameter().append("list", listId)
+                "streaming/list",
+                Parameter().append("list", listId)
         )
         if (response.isSuccessful) {
             val reader = response.body()!!.byteStream().bufferedReader()
             val dispatcher = Dispatcher()
             dispatcher.invokeLater(
-                streamingRunnable(reader, handler)
+                    streamingRunnable(reader, handler)
             )
             return Shutdownable(dispatcher)
         } else {
@@ -106,13 +106,13 @@ class Streaming(private val client: MastodonClient) {
     @Throws(Mastodon4jRequestException::class)
     fun direct(handler: Handler): Shutdownable {
         val response = client.get(
-            "streaming/direct"
+                "streaming/direct"
         )
         if (response.isSuccessful) {
             val reader = response.body()!!.byteStream().bufferedReader()
             val dispatcher = Dispatcher()
             dispatcher.invokeLater(
-                streamingRunnable(reader, handler)
+                    streamingRunnable(reader, handler)
             )
             return Shutdownable(dispatcher)
         } else {
@@ -143,22 +143,22 @@ class Streaming(private val client: MastodonClient) {
                     val json = payload.substring(start).trim()
                     if (event == "update") {
                         val status = client.getSerializer().fromJson(
-                            json,
-                            Status::class.java
+                                json,
+                                Status::class.java
                         )
                         handler.onStatus(status)
                     }
                     if (event == "notification") {
                         val notification = client.getSerializer().fromJson(
-                            json,
-                            Notification::class.java
+                                json,
+                                Notification::class.java
                         )
                         handler.onNotification(notification)
                     }
                     if (event == "delete") {
                         val id = client.getSerializer().fromJson(
-                            json,
-                            Long::class.java
+                                json,
+                                Long::class.java
                         )
                         handler.onDelete(id)
                     }

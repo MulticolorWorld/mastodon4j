@@ -15,35 +15,35 @@ class FollowRequests(private val client: MastodonClient) {
     //  GET /api/v1/follow_requests
     fun getFollowRequests(range: Range = Range()): MastodonRequest<Pageable<Account>> {
         return MastodonRequest<Pageable<Account>>(
-            {
-                client.get("follow_requests", range.toParameter())
-            },
-            {
-                client.getSerializer().fromJson(it, Account::class.java)
-            }
+                {
+                    client.get("follow_requests", range.toParameter())
+                },
+                {
+                    client.getSerializer().fromJson(it, Account::class.java)
+                }
         ).toPageable()
     }
 
     //  POST /api/v1/follow_requests/:id/authorize
     fun postAuthorize(accountId: Long): MastodonRequest<Nothing> {
         return MastodonRequest(
-            {
-                client.post("follow_requests/$accountId/authorize", emptyRequestBody())
-            },
-            {
-                client.getSerializer().fromJson(it, Nothing::class.java)
-            }
+                {
+                    client.post("follow_requests/$accountId/authorize", emptyRequestBody())
+                },
+                {
+                    client.getSerializer().fromJson(it, Nothing::class.java)
+                }
         )
     }
 
     fun postReject(accountId: Long): MastodonRequest<Nothing> {
         return MastodonRequest(
-            {
-                client.post("follow_requests/$accountId/reject", emptyRequestBody())
-            },
-            {
-                client.getSerializer().fromJson(it, Nothing::class.java)
-            }
+                {
+                    client.post("follow_requests/$accountId/reject", emptyRequestBody())
+                },
+                {
+                    client.getSerializer().fromJson(it, Nothing::class.java)
+                }
         )
     }
 }

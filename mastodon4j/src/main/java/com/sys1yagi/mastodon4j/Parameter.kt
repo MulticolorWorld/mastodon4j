@@ -25,10 +25,10 @@ class Parameter {
     }
 
     fun build(): String =
-        parameters
-            .map {
-                "${it.first}=${URLEncoder.encode(it.second, "utf-8")}"
-            }
-            .joinToString(separator = "&")
+            parameters
+                    .map {
+                        "${it.first}=${URLEncoder.encode(it.second, "utf-8")}"
+                    }
+                    .joinToString(separator = "&")
 
 }
