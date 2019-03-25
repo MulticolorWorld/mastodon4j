@@ -13,7 +13,7 @@ import okhttp3.MediaType
 import okhttp3.RequestBody
 
 /**
- * See more https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md#accounts
+ * See more https://docs.joinmastodon.org/api/rest/accounts/
  */
 class Accounts(private val client: MastodonClient) {
 
@@ -22,6 +22,35 @@ class Accounts(private val client: MastodonClient) {
         return MastodonRequest(
                 { client.get("accounts/$accountId") },
                 { client.getSerializer().fromJson(it, Account::class.java) }
+        )
+    }
+
+    // POST /api/v1/accounts
+    fun postAccount(
+            username: String,
+            email: String,
+            password: String,
+            agreement: Boolean,
+            locale: String
+    ): MastodonRequest<Account.Token> {
+        val parameters = Parameter().apply {
+            append("username", username)
+            append("email", email)
+            append("password", password)
+            append("agreement", agreement)
+            append("locale", locale)
+        }
+        return MastodonRequest(
+                {
+                    client.post("accounts",
+                            RequestBody.create(
+                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
+                                    parameters.build()
+                            ))
+                },
+                {
+                    client.getSerializer().fromJson(it, Account.Token::class.java)
+                }
         )
     }
 
@@ -34,12 +63,13 @@ class Accounts(private val client: MastodonClient) {
     }
 
     // PATCH /api/v1/accounts/update_credentials
-    fun updateCredential(displayName: String? = null,
-                         note: String? = null,
-                         avatar: String? = null,
-                         header: String? = null,
-                         locked: Boolean? = null,
-                         fieldsAttributes: List<Pair<String, String>>? = null
+    fun updateCredential(
+            displayName: String? = null,
+            note: String? = null,
+            avatar: String? = null,
+            header: String? = null,
+            locked: Boolean? = null,
+            fieldsAttributes: List<Pair<String, String>>? = null
     ): MastodonRequest<Account> {
         val parameters = Parameter().apply {
             displayName?.let {
@@ -113,6 +143,7 @@ class Accounts(private val client: MastodonClient) {
             onlyMedia: Boolean? = null,
             pinned: Boolean? = null,
             excludeReplies: Boolean? = null,
+            excludeReblogs: Boolean? = null,
             range: Range = Range()
     ): MastodonRequest<Pageable<Status>> {
         val parameters = range.toParameter().apply {
@@ -124,6 +155,9 @@ class Accounts(private val client: MastodonClient) {
             }
             excludeReplies?.let {
                 append("exclude_replies", it)
+            }
+            excludeReblogs?.let {
+                append("exclude_reblogs", it)
             }
         }
         return MastodonRequest<Pageable<Status>>(

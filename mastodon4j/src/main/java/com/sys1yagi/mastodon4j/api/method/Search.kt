@@ -27,7 +27,7 @@ class Search(private val client: MastodonClient) {
                     )
                 },
                 {
-                    client.getSerializer().fromJson(it, Report::class.java)
+                    client.getSerializer().fromJson(it, Results::class.java)
                 }
         )
     }

@@ -3,8 +3,7 @@ package com.sys1yagi.mastodon4j.api.method
 import com.sys1yagi.mastodon4j.MastodonClient
 import com.sys1yagi.mastodon4j.MastodonRequest
 import com.sys1yagi.mastodon4j.Parameter
-import com.sys1yagi.mastodon4j.api.Pageable
-import com.sys1yagi.mastodon4j.api.Range
+import com.sys1yagi.mastodon4j.api.entity.Account
 import okhttp3.MediaType
 import okhttp3.RequestBody
 
@@ -13,31 +12,20 @@ import okhttp3.RequestBody
  */
 class Reports(private val client: MastodonClient) {
 
-    // GET /api/v1/reports
-    fun getReports(range: Range = Range()): MastodonRequest<Pageable<Report>> {
-        return MastodonRequest<Pageable<Report>>(
-                {
-                    client.get(
-                            "reports",
-                            range.toParameter()
-                    )
-                },
-                {
-                    client.getSerializer().fromJson(it, Report::class.java)
-                }
-        ).toPageable()
-    }
-
     // POST /api/v1/reports
     fun postReport(
             accountId: Long,
-            statusId: Long,
-            comment: String
-    ): MastodonRequest<Report> {
+            statusIds: List<Long> = emptyList(),
+            comment: String = "",
+            forward: Boolean? = null
+    ): MastodonRequest<Account> {
         val parameters = Parameter().apply {
             append("account_id", accountId)
-            append("status_ids", statusId)
+            append("status_ids", statusIds)
             append("comment", comment)
+            forward?.let {
+                append("forward", it)
+            }
         }
         return MastodonRequest(
                 {
@@ -48,7 +36,7 @@ class Reports(private val client: MastodonClient) {
                             ))
                 },
                 {
-                    client.getSerializer().fromJson(it, Report::class.java)
+                    client.getSerializer().fromJson(it, Account::class.java)
                 }
         )
     }
