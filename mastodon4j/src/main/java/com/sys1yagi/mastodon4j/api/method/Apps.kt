@@ -25,7 +25,7 @@ class Apps(private val client: MastodonClient) {
         val parameter = Parameter().apply {
             append("client_name", clientName)
             append("redirect_uris", redirectUris)
-            append("scope", scope.toString())
+            append("scopes", scope.toString())
             website?.let {
                 append("website", it)
             }
@@ -101,7 +101,7 @@ class Apps(private val client: MastodonClient) {
         val parameters = Parameter().apply {
             append("client_id", clientId)
             append("client_secret", clientSecret)
-            append("scope", scope.toString())
+            append("scopes", scope.toString())
             append("username", userName)
             append("password", password)
             append("grant_type", "password")
