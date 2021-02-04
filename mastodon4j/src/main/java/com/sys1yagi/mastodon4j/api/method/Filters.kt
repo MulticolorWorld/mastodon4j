@@ -6,7 +6,9 @@ import com.sys1yagi.mastodon4j.Parameter
 import com.sys1yagi.mastodon4j.api.entity.Filter
 import com.sys1yagi.mastodon4j.extension.emptyRequestBody
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 /**
  * See more https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md#filters
@@ -49,10 +51,8 @@ class Filters(private val client: MastodonClient) {
         return MastodonRequest(
                 {
                     client.post("filters",
-                            RequestBody.create(
-                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                                    parameters.build()
-                            )
+                        parameters.build()
+                            .toRequestBody("application/x-www-form-urlencoded; charset=utf-8".toMediaTypeOrNull())
                     )
                 },
                 {
@@ -97,11 +97,10 @@ class Filters(private val client: MastodonClient) {
         }
         return MastodonRequest(
                 {
-                    client.put("filters/$id",
-                            RequestBody.create(
-                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                                    parameters.build()
-                            )
+                    client.put(
+                        "filters/$id",
+                        parameters.build()
+                            .toRequestBody("application/x-www-form-urlencoded; charset=utf-8".toMediaTypeOrNull())
                     )
                 },
                 {

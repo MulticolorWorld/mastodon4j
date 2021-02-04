@@ -3,7 +3,7 @@ package com.sys1yagi.mastodon4j
 import com.google.gson.JsonParser
 import com.sys1yagi.mastodon4j.api.exception.Mastodon4jRequestException
 import com.sys1yagi.mastodon4j.extension.toPageable
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import okhttp3.Response
 
 open class MastodonRequest<T>(
@@ -37,8 +37,8 @@ open class MastodonRequest<T>(
         val response = executor()
         if (response.isSuccessful) {
             try {
-                val body = response.body()!!.string()
-                val element = JsonParser().parse(body)
+                val body = response.body!!.string()
+                val element = JsonParser.parseString(body)
                 if (element.isJsonObject) {
                     action(body)
                     return mapper(body) as T

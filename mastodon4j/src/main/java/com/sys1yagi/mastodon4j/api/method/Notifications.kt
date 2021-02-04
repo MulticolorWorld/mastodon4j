@@ -9,7 +9,9 @@ import com.sys1yagi.mastodon4j.api.entity.Notification
 import com.sys1yagi.mastodon4j.api.entity.PushSubscription
 import com.sys1yagi.mastodon4j.extension.emptyRequestBody
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 /**
  * See more https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md#notifications
@@ -63,10 +65,8 @@ class Notifications(private val client: MastodonClient) {
         return MastodonRequest(
                 {
                     client.post("notifications/dismiss",
-                            RequestBody.create(
-                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                                    parameters.build()
-                            )
+                        parameters.build()
+                            .toRequestBody("application/x-www-form-urlencoded; charset=utf-8".toMediaTypeOrNull())
                     )
                 },
                 {
@@ -105,11 +105,10 @@ class Notifications(private val client: MastodonClient) {
 
         return MastodonRequest(
                 {
-                    client.post("push/subscription",
-                            RequestBody.create(
-                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                                    parameters.build()
-                            )
+                    client.post(
+                        "push/subscription",
+                        parameters.build()
+                            .toRequestBody("application/x-www-form-urlencoded; charset=utf-8".toMediaTypeOrNull())
                     )
                 },
                 {
@@ -154,11 +153,10 @@ class Notifications(private val client: MastodonClient) {
 
         return MastodonRequest(
                 {
-                    client.put("push/subscription",
-                            RequestBody.create(
-                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                                    parameters.build()
-                            )
+                    client.put(
+                        "push/subscription",
+                        parameters.build()
+                            .toRequestBody("application/x-www-form-urlencoded; charset=utf-8".toMediaTypeOrNull())
                     )
                 },
                 {

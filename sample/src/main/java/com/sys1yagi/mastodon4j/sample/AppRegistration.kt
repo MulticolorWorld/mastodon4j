@@ -9,7 +9,7 @@ import okhttp3.OkHttpClient
 /**
  * see more https://github.com/tootsuite/documentation/blob/master/Using-the-API/OAuth-details.md
  */
-fun main(args: Array<String>) {
+fun main() {
 
     val instanceName = "instanceName"
 

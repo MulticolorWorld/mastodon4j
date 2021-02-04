@@ -6,7 +6,9 @@ import com.sys1yagi.mastodon4j.Parameter
 import com.sys1yagi.mastodon4j.api.Pageable
 import com.sys1yagi.mastodon4j.api.Range
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 /**
  * See more https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md#domain-blocks
@@ -33,10 +35,8 @@ class DomainBlocks(private val client: MastodonClient) {
         return MastodonRequest(
                 {
                     client.post("domain_blocks",
-                            RequestBody.create(
-                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                                    parameters.build()
-                            )
+                        parameters.build()
+                            .toRequestBody("application/x-www-form-urlencoded; charset=utf-8".toMediaTypeOrNull())
                     )
                 },
                 {
@@ -52,11 +52,11 @@ class DomainBlocks(private val client: MastodonClient) {
         }
         return MastodonRequest(
                 {
-                    client.delete("domain_blocks",
-                            RequestBody.create(
-                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                                    parameters.build()
-                            ))
+                    client.delete(
+                        "domain_blocks",
+                        parameters.build()
+                            .toRequestBody("application/x-www-form-urlencoded; charset=utf-8".toMediaTypeOrNull())
+                    )
                 },
                 {
                     client.getSerializer().fromJson(it, Nothing::class.java)

@@ -8,7 +8,7 @@ import okhttp3.OkHttpClient
 /**
  * see more https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md#timelines
  */
-fun main(args: Array<String>) {
+fun main() {
 
     val instanceName = "instanceName"
     val accessToken = "accessToken"

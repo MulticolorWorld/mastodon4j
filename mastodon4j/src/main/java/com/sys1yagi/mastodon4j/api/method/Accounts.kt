@@ -10,7 +10,9 @@ import com.sys1yagi.mastodon4j.api.entity.Relationship
 import com.sys1yagi.mastodon4j.api.entity.Status
 import com.sys1yagi.mastodon4j.extension.emptyRequestBody
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 /**
  * See more https://docs.joinmastodon.org/api/rest/accounts/
@@ -43,10 +45,9 @@ class Accounts(private val client: MastodonClient) {
         return MastodonRequest(
                 {
                     client.post("accounts",
-                            RequestBody.create(
-                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                                    parameters.build()
-                            ))
+                        parameters.build()
+                            .toRequestBody("application/x-www-form-urlencoded; charset=utf-8".toMediaTypeOrNull())
+                    )
                 },
                 {
                     client.getSerializer().fromJson(it, Account.Token::class.java)
@@ -97,10 +98,9 @@ class Accounts(private val client: MastodonClient) {
         return MastodonRequest(
                 {
                     client.patch("accounts/update_credentials",
-                            RequestBody.create(
-                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                                    parameters.build()
-                            ))
+                        parameters.build()
+                            .toRequestBody("application/x-www-form-urlencoded; charset=utf-8".toMediaTypeOrNull())
+                    )
                 },
                 {
                     client.getSerializer().fromJson(it, Account::class.java)
@@ -186,11 +186,9 @@ class Accounts(private val client: MastodonClient) {
         return MastodonRequest(
                 {
                     client.post(
-                            "accounts/$accountId/follow",
-                            RequestBody.create(
-                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                                    parameters.build()
-                            )
+                        "accounts/$accountId/follow",
+                        parameters.build()
+                            .toRequestBody("application/x-www-form-urlencoded; charset=utf-8".toMediaTypeOrNull())
                     )
                 },
                 {
@@ -248,11 +246,9 @@ class Accounts(private val client: MastodonClient) {
         return MastodonRequest(
                 {
                     client.post(
-                            "accounts/$accountId/mute",
-                            RequestBody.create(
-                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                                    parameters.build()
-                            )
+                        "accounts/$accountId/mute",
+                        parameters.build()
+                            .toRequestBody("application/x-www-form-urlencoded; charset=utf-8".toMediaTypeOrNull())
                     )
                 },
                 {

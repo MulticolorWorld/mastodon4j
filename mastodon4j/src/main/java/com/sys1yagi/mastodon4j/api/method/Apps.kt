@@ -7,7 +7,9 @@ import com.sys1yagi.mastodon4j.api.Scope
 import com.sys1yagi.mastodon4j.api.entity.auth.AccessToken
 import com.sys1yagi.mastodon4j.api.entity.auth.AppRegistration
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 /**
  * see more https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md#apps
@@ -33,10 +35,9 @@ class Apps(private val client: MastodonClient) {
         return MastodonRequest(
                 {
                     client.post("apps",
-                            RequestBody.create(
-                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                                    parameter.build()
-                            ))
+                        parameter.build()
+                            .toRequestBody("application/x-www-form-urlencoded; charset=utf-8".toMediaTypeOrNull())
+                    )
                 },
                 {
                     client.getSerializer().fromJson(it, AppRegistration::class.java)
@@ -77,11 +78,11 @@ class Apps(private val client: MastodonClient) {
         }
         return MastodonRequest(
                 {
-                    client.postUrl(url,
-                            RequestBody.create(
-                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                                    parameters.build()
-                            ))
+                    client.postUrl(
+                        url,
+                        parameters.build()
+                            .toRequestBody("application/x-www-form-urlencoded; charset=utf-8".toMediaTypeOrNull())
+                    )
                 },
                 {
                     client.getSerializer().fromJson(it, AccessToken::class.java)
@@ -109,11 +110,11 @@ class Apps(private val client: MastodonClient) {
 
         return MastodonRequest(
                 {
-                    client.postUrl(url,
-                            RequestBody.create(
-                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                                    parameters.build()
-                            ))
+                    client.postUrl(
+                        url,
+                        parameters.build()
+                            .toRequestBody("application/x-www-form-urlencoded; charset=utf-8".toMediaTypeOrNull())
+                    )
                 },
                 {
                     client.getSerializer().fromJson(it, AccessToken::class.java)

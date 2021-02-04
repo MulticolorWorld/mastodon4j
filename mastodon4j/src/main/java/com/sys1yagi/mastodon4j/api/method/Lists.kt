@@ -8,7 +8,9 @@ import com.sys1yagi.mastodon4j.api.entity.Account
 import com.sys1yagi.mastodon4j.api.entity.MastodonList
 import com.sys1yagi.mastodon4j.extension.emptyRequestBody
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 /**
  * See more https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md#lists
@@ -83,10 +85,8 @@ class Lists(private val client: MastodonClient) {
         return MastodonRequest(
                 {
                     client.put("lists/$id",
-                            RequestBody.create(
-                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                                    parameters.build()
-                            )
+                        parameters.build()
+                            .toRequestBody("application/x-www-form-urlencoded; charset=utf-8".toMediaTypeOrNull())
                     )
                 },
                 {
@@ -114,11 +114,10 @@ class Lists(private val client: MastodonClient) {
         }
         return MastodonRequest(
                 {
-                    client.post("lists/$id/accounts",
-                            RequestBody.create(
-                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                                    parameters.build()
-                            )
+                    client.post(
+                        "lists/$id/accounts",
+                        parameters.build()
+                            .toRequestBody("application/x-www-form-urlencoded; charset=utf-8".toMediaTypeOrNull())
                     )
                 },
                 {
@@ -134,11 +133,10 @@ class Lists(private val client: MastodonClient) {
         }
         return MastodonRequest(
                 {
-                    client.delete("lists/$id/accounts",
-                            RequestBody.create(
-                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                                    parameters.build()
-                            )
+                    client.delete(
+                        "lists/$id/accounts",
+                        parameters.build()
+                            .toRequestBody("application/x-www-form-urlencoded; charset=utf-8".toMediaTypeOrNull())
                     )
                 },
                 {

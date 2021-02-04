@@ -5,11 +5,11 @@
 
 mastodon4j is [mastodon](https://github.com/tootsuite/mastodon) client for Java and Kotlin.
 
-# Official API Doc
+## Official API Doc
 
 https://docs.joinmastodon.org
 
-# Get Started
+## Get Started
 
 Mastodon4j publish in jitpack.
 Add it in your root build.gradle at the end of repositories:
@@ -29,7 +29,7 @@ compile 'com.github.multicolorworld.mastodon4j:mastodon4j:$version'
 
 Check latest version on Jitpack [![](https://jitpack.io/v/MulticolorWorld/mastodon4j.svg)](https://jitpack.io/#MulticolorWorld/mastodon4j)
 
-# Versioning
+## Versioning
 
 [Semantic Versioning 2.0.0](http://semver.org/spec/v2.0.0.html)
 
@@ -37,7 +37,7 @@ Check latest version on Jitpack [![](https://jitpack.io/v/MulticolorWorld/mastod
 
 Found a problem? Want a new feature? First of all see if your issue or idea has already been reported. If don't, just open a new clear and descriptive [issues](https://github.com/multicolorworld/mastodon4j/issues)
 
-# License
+## License
 
 ```
 MIT License

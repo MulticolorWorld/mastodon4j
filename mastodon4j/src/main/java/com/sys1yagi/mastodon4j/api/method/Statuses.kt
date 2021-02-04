@@ -11,7 +11,9 @@ import com.sys1yagi.mastodon4j.api.entity.Context
 import com.sys1yagi.mastodon4j.api.entity.Status
 import com.sys1yagi.mastodon4j.extension.emptyRequestBody
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 /**
  * See more https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md#statuses
@@ -119,10 +121,9 @@ class Statuses(private val client: MastodonClient) {
         return MastodonRequest(
                 {
                     client.post("statuses",
-                            RequestBody.create(
-                                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                                    parameters.build()
-                            ))
+                        parameters.build()
+                            .toRequestBody("application/x-www-form-urlencoded; charset=utf-8".toMediaTypeOrNull())
+                    )
                 },
                 {
                     client.getSerializer().fromJson(it, Status::class.java)

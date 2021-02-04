@@ -1,4 +1,6 @@
 dependencies {
-    compile project(':mastodon4j')
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation project(':mastodon4j')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    implementation "com.google.code.gson:gson:$gsonVersion"
 }
