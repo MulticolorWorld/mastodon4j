@@ -6,7 +6,7 @@ import com.sys1yagi.mastodon4j.extension.toPageable
 import io.reactivex.Single
 import okhttp3.Response
 
-open class MastodonRequest<T>(
+open class MastodonRequest<T: Any>(
         private val executor: () -> Response,
         private val mapper: (String) -> Any
 ) {
@@ -33,7 +33,7 @@ open class MastodonRequest<T>(
 
     @Suppress("UNCHECKED_CAST")
     @Throws(Mastodon4jRequestException::class)
-    fun <T: Any> execute(): T {
+    fun execute(): T {
         val response = executor()
         if (response.isSuccessful) {
             try {
@@ -65,7 +65,7 @@ open class MastodonRequest<T>(
     }
 
     @Suppress("UNCHECKED_CAST")
-    fun <T: Any> single(): Single<T> {
+    fun single(): Single<T> {
         return Single.create {
             try {
                 it.onSuccess(execute())
