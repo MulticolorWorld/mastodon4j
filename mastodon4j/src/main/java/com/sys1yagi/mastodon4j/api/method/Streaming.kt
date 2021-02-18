@@ -9,6 +9,7 @@ import com.sys1yagi.mastodon4j.api.entity.Notification
 import com.sys1yagi.mastodon4j.api.entity.Status
 import com.sys1yagi.mastodon4j.api.exception.Mastodon4jRequestException
 import java.io.BufferedReader
+import java.io.IOException
 
 /**
  * See more https://github.com/tootsuite/documentation/blob/master/Using-the-API/Streaming-API.md
@@ -169,7 +170,11 @@ class Streaming(private val client: MastodonClient) {
                     break
                 }
             }
-            reader.close()
+            try {
+                reader.close()
+            } catch (ignore: IOException){
+
+            }
         }
     }
 }

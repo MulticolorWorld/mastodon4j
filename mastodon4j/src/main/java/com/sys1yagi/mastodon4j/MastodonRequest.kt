@@ -33,7 +33,7 @@ open class MastodonRequest<T>(
 
     @Suppress("UNCHECKED_CAST")
     @Throws(Mastodon4jRequestException::class)
-    fun execute(): T {
+    fun <T: Any> execute(): T {
         val response = executor()
         if (response.isSuccessful) {
             try {
@@ -59,12 +59,13 @@ open class MastodonRequest<T>(
                 throw Mastodon4jRequestException(e)
             }
         } else {
+            response.close()
             throw Mastodon4jRequestException(response)
         }
     }
 
     @Suppress("UNCHECKED_CAST")
-    fun single(): Single<T> {
+    fun <T: Any> single(): Single<T> {
         return Single.create {
             try {
                 it.onSuccess(execute())
