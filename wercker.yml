@@ -1,8 +1,0 @@
-box: java:8
-
-build:
-  steps:
-    - script:
-      name: mastodon4j build
-      code: |
-        ./gradlew jar
